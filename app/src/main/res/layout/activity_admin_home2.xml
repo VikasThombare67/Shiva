@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".AdminHomeActivity"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Admin Home Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Home"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp" />
+
+    <!-- GridLayout for Images and Labels -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:alignmentMode="alignMargins"
+        android:layout_margin="16dp"
+        android:rowOrderPreserved="false">
+
+        <!-- First Item (Notes) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/image_view1"
+                android:layout_width="129dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_edit_note_24"
+                android:contentDescription="Notes" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notes"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Second Item (Developers) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/image_view2"
+                android:layout_width="129dp"
+                android:layout_height="129dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/person"
+                android:contentDescription="Developers" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Developers"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Third Item (Staff) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/image_view3"
+                android:layout_width="129dp"
+                android:layout_height="129dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/groups_24px"
+                android:contentDescription="Staff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Staff"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Fourth Item (Manual Book) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="16dp">
+
+            <ImageView
+                android:id="@+id/image_view4"
+                android:layout_width="129dp"
+                android:layout_height="129dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_menu_book_24"
+                android:contentDescription="Manual Book" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manual Book"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </GridLayout>
+</LinearLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "844788933907",
+    "project_id": "shiva-92235",
+    "storage_bucket": "shiva-92235.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844788933907:android:5422a2b57456cc9ef2a6e6",
+        "android_client_info": {
+          "package_name": "com.example.shiva"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Ka50kLmDZ_WoHYPjnqD9fPmVBVnvGu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
