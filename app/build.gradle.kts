@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -45,8 +46,11 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.gridlayout)
+    implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+
 }
+
