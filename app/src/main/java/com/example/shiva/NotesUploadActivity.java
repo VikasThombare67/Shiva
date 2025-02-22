@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.security.AllPermission;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,18 +165,17 @@ public class NotesUploadActivity extends AppCompatActivity {
     private void fetchNotes() {
         db.collection("notes").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                notesList.clear(); // Clear list before adding new data
-                for (DocumentSnapshot document : task.getResult()) {
+                notesList.clear(); // List reset karo taaki purane data repeat na ho
+                for (QueryDocumentSnapshot document : task.getResult()) {
                     NoteModel note = document.toObject(NoteModel.class);
-                    if (note != null) {
-                        note.setDocumentId(document.getId()); // Store Firestore Document ID
-                        if (document.contains("fileName")) {
-                            note.setFileName(document.getString("fileName")); // Store File Name
-                        }
+
+                    // ✅ Sirf wahi notes dikhaye jo "All" ya student ke department ke hai
+                    if (note.getDepartment().equals("All") || note.getDepartment().equals(notesList)) {
+                        Log.d("FETCH_NOTES", "Note: " + note.getFileName());
                         notesList.add(note);
                     }
                 }
-                notesAdapter.notifyDataSetChanged();
+                notesAdapter.notifyDataSetChanged(); // UI ko update karo
             }
         });
     }

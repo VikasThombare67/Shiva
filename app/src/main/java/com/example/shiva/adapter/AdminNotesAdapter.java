@@ -72,6 +72,7 @@ public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         context.startActivity(intent);
     });
 
+    holder.tvFileName.setText(note.getOriginalFileName() + " (" + note.getDepartment() + ")");
     holder.btnDelete.setOnClickListener(v -> {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -82,7 +83,6 @@ public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             return;
         }
 
-        holder.tvFileName.setText(note.getOriginalFileName() + " (" + note.getDepartment() + ")");
 
 
         StorageReference fileRef = storage.getReference().child("notes/" + note.getFileName());
