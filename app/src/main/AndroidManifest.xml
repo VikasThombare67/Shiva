@@ -21,12 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shiva"
         tools:targetApi="31" >
-        <activity
-            android:name=".StaffAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".Staff"
-            android:exported="false" />
+
         <activity
             android:name=".item_profile"
             android:exported="false" />
@@ -34,22 +29,10 @@
             android:name=".MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".Profile_Fregment"
-            android:exported="false" />
-        <activity
-            android:name=".DashBorad"
-            android:exported="false" />
-        <activity
             android:name=".Logout_Activity"
             android:exported="false" />
         <activity
-            android:name=".HomeFragment"
-            android:exported="false" />
-        <activity
             android:name=".User_home"
-            android:exported="false" />
-        <activity
-            android:name=".NotesActivity"
             android:exported="false" />
 
         <receiver
