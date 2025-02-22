@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shiva.adapter.NotesAdapter;
 import com.example.shiva.model.Note;
+import com.example.shiva.model.NoteModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -24,7 +25,7 @@ public class NotesViewActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private NotesAdapter adapter;
-    private List<Note> notesList;
+    private List<NoteModel> notesList;
     private ProgressBar progressBar;
     private FirebaseFirestore db;
 
@@ -53,7 +54,7 @@ public class NotesViewActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 notesList.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    Note note = document.toObject(Note.class);
+                    NoteModel note = document.toObject(NoteModel.class);
                     notesList.add(note);
                 }
                 adapter.notifyDataSetChanged();

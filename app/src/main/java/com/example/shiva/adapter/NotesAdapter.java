@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shiva.R;
 import com.example.shiva.model.Note;
+import com.example.shiva.model.NoteModel;
 
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private List<Note> notesList;
+    private List<NoteModel> notesList;
     private Context context;
 
-    public NotesAdapter(List<Note> notesList, Context context) {
+    public NotesAdapter(List<NoteModel> notesList, Context context) {
         this.notesList = notesList;
         this.context = context;
     }
@@ -35,7 +36,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Note note = notesList.get(position);
+        NoteModel note = notesList.get(position);
         holder.tvDepartment.setText("Department: " + note.getDepartment());
         holder.tvFileUrl.setText("View File");
 
