@@ -1,81 +1,83 @@
 package com.example.shiva;
 
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.shiva.model.Admin;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AdminLoginActivity extends AppCompatActivity {
 
-    private TextInputEditText usernameEditText, passwordEditText;
-    private TextInputLayout usernameLayout, passwordLayout;
-    private Button loginButton;
-
-    // Fixed admin username and password
-    private static final String ADMIN_USERNAME = "admin";  // Fixed username
-    private static final String ADMIN_PASSWORD = "admin123";  // Fixed password
+    private EditText etUsername, etPassword;
+    private Button btnLogin;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_admin_login);
 
-        // Initialize views
-        usernameEditText = findViewById(R.id.username);
-        passwordEditText = findViewById(R.id.password);
-        usernameLayout = (TextInputLayout) findViewById(R.id.username).getParent().getParent();
-        passwordLayout = (TextInputLayout) findViewById(R.id.password).getParent().getParent();
-        loginButton = findViewById(R.id.login_button);
+        db = FirebaseFirestore.getInstance();
 
-        // Set click listener for the login button
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        etUsername = findViewById(R.id.et_admin_username);
+        etPassword = findViewById(R.id.et_admin_password);
+        btnLogin = findViewById(R.id.btn_admin_login);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateLogin();
+                validateAdminLogin();
             }
         });
     }
 
-    // Method to validate login credentials
-    private void validateLogin() {
-        String username = usernameEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+    private void validateAdminLogin() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-        // Reset errors
-        usernameLayout.setError(null);
-        passwordLayout.setError(null);
-
-        // Username validation
-        if (TextUtils.isEmpty(username)) {
-            usernameLayout.setError("Username is required");
-            usernameEditText.requestFocus();
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Password validation
-        if (TextUtils.isEmpty(password)) {
-            passwordLayout.setError("Password is required");
-            passwordEditText.requestFocus();
-            return;
-        }
-        // Check if the entered credentials match the fixed admin credentials
-        if (username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD)) {
-            // Successful login
-            Toast.makeText(AdminLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+        // Fetch admin credentials from Firestore
+        db.collection("admin").get().addOnCompleteListener(new OnCompleteListener<com.google.firebase.firestore.QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
+                if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                    boolean isAuthenticated = false;
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Admin admin = document.toObject(Admin.class);
+                        if (admin != null && admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
+                            isAuthenticated = true;
 
-            // Start AdminHomeActivity on successful login
-            Intent intent = new Intent(AdminLoginActivity.this, AdminHomeActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // Invalid credentials
-            Toast.makeText(AdminLoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-        }
+                            break;
+                        }
+                    }
+
+                    if (isAuthenticated) {
+                        Toast.makeText(AdminLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(AdminLoginActivity.this, AdminNoticeActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(AdminLoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AdminLoginActivity.this, "No Admin Found!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

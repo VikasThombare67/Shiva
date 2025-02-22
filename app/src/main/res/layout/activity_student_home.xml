@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/white">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Home"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="20dp" />
+
+    <!-- Notices Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_notices"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:cardElevation="6dp"
+        android:layout_margin="10dp"
+        android:radius="12dp"
+        app:cardBackgroundColor="@android:color/holo_blue_bright">
+
+        <LinearLayout
+            android:background="#AEAEAE"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notices"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Staff Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_staff"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:cardElevation="6dp"
+        android:layout_margin="10dp"
+        android:radius="12dp"
+        app:cardBackgroundColor="@android:color/holo_green_dark">
+
+        <LinearLayout
+            android:background="#AEAEAE"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Staff Information"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_marginTop="20dp"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:textColor="@android:color/white"/>
+</LinearLayout>

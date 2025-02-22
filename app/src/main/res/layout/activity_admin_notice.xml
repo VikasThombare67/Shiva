@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_notice_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Notice Title" />
+
+    <EditText
+        android:id="@+id/et_notice_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Notice Description"
+        android:minLines="3"
+        android:inputType="textMultiLine" />
+
+    <Spinner
+        android:id="@+id/spinner_department"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_post_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post Notice" />
+
+</LinearLayout>
