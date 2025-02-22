@@ -32,9 +32,10 @@ public class StudentLoginActivity extends AppCompatActivity {
     private static final String KEY_STUDENT_ID = "studentId";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_DEPARTMENT = "department";
-    private static final String TAG = "StudentLogin";
+    private static final String KEY_IS_LOGGED_IN = "isStudentLoggedIn"; // New Key
 
     TextView tvSignup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,14 @@ public class StudentLoginActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+
+        // Check if Student is already logged in
+        if (sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)) {
+            startActivity(new Intent(StudentLoginActivity.this, StudentHomeActivity.class));
+            finish();
+            return; // Prevent further execution
+        }
+
         tvSignup = findViewById(R.id.tv_signup);
         etEmail = findViewById(R.id.et_student_email);
         etPassword = findViewById(R.id.et_student_password);
@@ -53,6 +62,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                 validateStudentLogin();
             }
         });
+
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +98,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                                     editor.putString(KEY_STUDENT_ID, studentId);
                                     editor.putString(KEY_EMAIL, student.getEmail());
                                     editor.putString(KEY_DEPARTMENT, student.getDepartment());
+                                    editor.putBoolean(KEY_IS_LOGGED_IN, true); // Store login status
                                     editor.apply();
 
                                     Toast.makeText(StudentLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();

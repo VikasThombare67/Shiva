@@ -34,7 +34,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         cardStaff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StudentHomeActivity.this, StaffActivity.class));
+                startActivity(new Intent(StudentHomeActivity.this, NotesViewActivity.class));
             }
         });
 
@@ -43,7 +43,7 @@ public class StudentHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Clear SharedPreferences (User session)
-                SharedPreferences preferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences("StudentPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.apply();

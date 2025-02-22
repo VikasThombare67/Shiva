@@ -22,6 +22,12 @@
         android:theme="@style/Theme.Shiva"
         tools:targetApi="31">
         <activity
+            android:name=".NotesViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotesUploadActivity"
+            android:exported="false" />
+        <activity
             android:name=".StudentHomeActivity"
             android:exported="false" />
         <activity
@@ -93,7 +99,6 @@
         <activity
             android:name=".StudentLoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
