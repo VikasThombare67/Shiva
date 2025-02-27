@@ -1,9 +1,6 @@
 package com.example.shiva;
 
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,9 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.shiva.model.Student;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,14 +21,8 @@ public class StudentLoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
     private Button btnLogin;
+    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private SharedPreferences sharedPreferences;
-
-    private static final String PREF_NAME = "StudentPrefs";
-    private static final String KEY_STUDENT_ID = "studentId";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_DEPARTMENT = "department";
-    private static final String KEY_IS_LOGGED_IN = "isStudentLoggedIn"; // New Key
 
     TextView tvSignup;
 
@@ -41,15 +31,8 @@ public class StudentLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
 
+        mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-
-        // Check if Student is already logged in
-        if (sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)) {
-            startActivity(new Intent(StudentLoginActivity.this, StudentHomeActivity.class));
-            finish();
-            return; // Prevent further execution
-        }
 
         tvSignup = findViewById(R.id.tv_signup);
         etEmail = findViewById(R.id.et_student_email);
@@ -80,38 +63,25 @@ public class StudentLoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Fetch student credentials from Firestore
-        db.collection("students")
-                .whereEqualTo("email", email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<com.google.firebase.firestore.QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<com.google.firebase.firestore.QuerySnapshot> task) {
-                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                Student student = document.toObject(Student.class);
-                                if (student != null && student.getPassword().equals(password)) {
-                                    String studentId = document.getId(); // Get Firestore Document ID
-
-                                    // Save student details in SharedPreferences
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString(KEY_STUDENT_ID, studentId);
-                                    editor.putString(KEY_EMAIL, student.getEmail());
-                                    editor.putString(KEY_DEPARTMENT, student.getDepartment());
-                                    editor.putBoolean(KEY_IS_LOGGED_IN, true); // Store login status
-                                    editor.apply();
-
+        // Authenticate user with Firebase
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    db.collection("students").document(user.getUid()).get()
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful() && task1.getResult().exists()) {
                                     Toast.makeText(StudentLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(StudentLoginActivity.this, StudentHomeActivity.class));
                                     finish();
-                                    return;
+                                } else {
+                                    Toast.makeText(StudentLoginActivity.this, "Student Not Found!", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                            Toast.makeText(StudentLoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(StudentLoginActivity.this, "Student Not Found!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                            });
+                }
+            } else {
+                Toast.makeText(StudentLoginActivity.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -31,8 +31,10 @@ public class StudentNoticesActivity extends AppCompatActivity {
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
+
+// ✅ Firestore Offline Mode Enable Kara
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
+                .setPersistenceEnabled(true) // Local caching allow karto
                 .build();
         db.setFirestoreSettings(settings);
 
@@ -55,32 +57,20 @@ public class StudentNoticesActivity extends AppCompatActivity {
 
     private void fetchNotices() {
         db.collection("notices")
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Log.e(TAG, "Error Fetching Notices: ", error);
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        Log.e(TAG, "Error fetching notices", e);
                         return;
                     }
-
-                    if (value != null) {
+                    if (queryDocumentSnapshots != null) {
                         noticeList.clear();
-                        boolean noticeFound = false;
-                        for (QueryDocumentSnapshot document : value) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             Notice notice = document.toObject(Notice.class);
-                            Log.d(TAG, "Fetched Notice: " + notice.getTitle() + ", Dept: " + notice.getDepartment());
-
-                            // Ensure notice is added correctly
-                            if ("All".equals(notice.getDepartment()) || notice.getDepartment().equals(studentDepartment)) {
+                            if (notice.getDepartment().equals("All") || notice.getDepartment().equals(studentDepartment)) {
                                 noticeList.add(notice);
-                                noticeFound = true;
                             }
                         }
-
-                        if (!noticeFound) {
-                            Log.d(TAG, "No notices found for department: " + studentDepartment);
-                        }
-
-                        // Ensure UI updates on main thread
-                        runOnUiThread(() -> noticeAdapter.notifyDataSetChanged());
+                        noticeAdapter.notifyDataSetChanged();
                     }
                 });
     }
