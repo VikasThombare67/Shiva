@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.shiva.R;
 import com.example.shiva.model.Notice;
 
@@ -53,4 +52,3 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         }
     }
 }
-

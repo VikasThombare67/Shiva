@@ -19,7 +19,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_home);
 
         cardNotices = findViewById(R.id.card_notices);
-        cardStaff = findViewById(R.id.card_staff);
+        cardStaff = findViewById(R.id.card_notes);
         btnLogout = findViewById(R.id.btn_logout);
 
         // Open Student Dashboard

@@ -7,7 +7,7 @@ public class Student {
     private String department;
 
     public Student() {
-        // Required empty constructor for Firestore
+
     }
 
     public Student(String studentId, String email, String password, String department) {

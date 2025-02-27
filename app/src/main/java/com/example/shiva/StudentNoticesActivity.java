@@ -1,23 +1,17 @@
 package com.example.shiva;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.util.Log;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.example.shiva.adapter.NoticeAdapter;
 import com.example.shiva.model.Notice;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +21,7 @@ public class StudentNoticesActivity extends AppCompatActivity {
     private NoticeAdapter noticeAdapter;
     private List<Notice> noticeList;
     private FirebaseFirestore db;
-    private String studentId, studentEmail, studentDepartment;
+    private String studentDepartment;
     private static final String TAG = "StudentDashboard";
 
     @Override
@@ -35,19 +29,23 @@ public class StudentNoticesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_notices);
 
+        // Initialize Firestore
+        db = FirebaseFirestore.getInstance();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);
+
+        // Get student details from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE);
-        studentId = sharedPreferences.getString("studentId", "N/A");
-        studentEmail = sharedPreferences.getString("email", "N/A");
         studentDepartment = sharedPreferences.getString("department", "All");
 
-        Log.d(TAG, "Student ID: " + studentId);
-        Log.d(TAG, "Student Email: " + studentEmail);
-        Log.d(TAG, "Student Department: " + studentDepartment);
+        Log.d(TAG, "Student Department (from SharedPreferences): " + studentDepartment);
 
+        // Setup RecyclerView
         recyclerViewNotices = findViewById(R.id.recyclerViewNotices);
         recyclerViewNotices.setLayoutManager(new LinearLayoutManager(this));
 
-        db = FirebaseFirestore.getInstance();
         noticeList = new ArrayList<>();
         noticeAdapter = new NoticeAdapter(noticeList);
         recyclerViewNotices.setAdapter(noticeAdapter);
@@ -56,17 +54,34 @@ public class StudentNoticesActivity extends AppCompatActivity {
     }
 
     private void fetchNotices() {
-        db.collection("notices").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Notice notice = document.toObject(Notice.class);
-                    if (notice.getDepartment().equals("All") || notice.getDepartment().equals(studentDepartment)) {
-                        Log.d(TAG, "Notice: " + notice.getTitle());
-                        noticeList.add(notice);
+        db.collection("notices")
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.e(TAG, "Error Fetching Notices: ", error);
+                        return;
                     }
-                }
-                noticeAdapter.notifyDataSetChanged();
-            }
-        });
+
+                    if (value != null) {
+                        noticeList.clear();
+                        boolean noticeFound = false;
+                        for (QueryDocumentSnapshot document : value) {
+                            Notice notice = document.toObject(Notice.class);
+                            Log.d(TAG, "Fetched Notice: " + notice.getTitle() + ", Dept: " + notice.getDepartment());
+
+                            // Ensure notice is added correctly
+                            if ("All".equals(notice.getDepartment()) || notice.getDepartment().equals(studentDepartment)) {
+                                noticeList.add(notice);
+                                noticeFound = true;
+                            }
+                        }
+
+                        if (!noticeFound) {
+                            Log.d(TAG, "No notices found for department: " + studentDepartment);
+                        }
+
+                        // Ensure UI updates on main thread
+                        runOnUiThread(() -> noticeAdapter.notifyDataSetChanged());
+                    }
+                });
     }
 }

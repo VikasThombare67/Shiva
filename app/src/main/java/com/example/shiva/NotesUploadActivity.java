@@ -1,7 +1,7 @@
 package com.example.shiva;
 
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,18 +22,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shiva.adapter.AdminNotesAdapter;
-import com.example.shiva.adapter.NotesAdapter;
 import com.example.shiva.model.NoteModel;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.storage.UploadTask;
 
-import java.security.AllPermission;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +39,6 @@ import java.util.UUID;
 
 public class NotesUploadActivity extends AppCompatActivity {
 
-    private TextInputLayout departmentLayout;
     private AutoCompleteTextView departmentDropdown;
     private Button btnSelectFile, btnUpload;
     private TextView tvSelectedFile;
@@ -59,7 +56,6 @@ public class NotesUploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_upload);
 
-        departmentLayout = findViewById(R.id.text_input_layout_department);
         departmentDropdown = findViewById(R.id.auto_complete_department);
         btnSelectFile = findViewById(R.id.btn_select_file);
         btnUpload = findViewById(R.id.btn_upload);
@@ -71,7 +67,7 @@ public class NotesUploadActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         // Setup department dropdown
-        String[] departments = {"All Departments", "Computer", "IT", "Civil", "Mechanical", "Electronics"};
+        String[] departments = {"Computer", "IT", "Civil", "Mechanical", "Electronics"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, departments);
         departmentDropdown.setAdapter(adapter);
 
@@ -88,13 +84,13 @@ public class NotesUploadActivity extends AppCompatActivity {
         ActivityResultLauncher<String> filePicker = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
             if (uri != null) {
                 fileUri = uri;
-                tvSelectedFile.setText("Selected File: " + uri.getLastPathSegment());
+                tvSelectedFile.setText(getFileNameFromUri(fileUri));
             } else {
                 tvSelectedFile.setText("No file selected");
             }
         });
 
-        btnSelectFile.setOnClickListener(v -> filePicker.launch("*/*")); // Pick any file (PDF, Image, etc.)
+        btnSelectFile.setOnClickListener(v -> filePicker.launch("application/pdf"));
         btnUpload.setOnClickListener(v -> uploadFile());
     }
 
@@ -112,19 +108,16 @@ public class NotesUploadActivity extends AppCompatActivity {
         progressDialog.show();
 
         String department = departmentDropdown.getText().toString().trim();
-
-        // Extract the original file name from URI
         String originalFileName = getFileNameFromUri(fileUri);
-        String uniqueFileName = UUID.randomUUID().toString(); // Unique identifier
+        String uniqueFileName = UUID.randomUUID().toString();
         StorageReference fileRef = storage.getReference().child("notes/" + uniqueFileName);
 
         fileRef.putFile(fileUri).addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            // Store file details in Firestore
             HashMap<String, Object> noteData = new HashMap<>();
             noteData.put("department", department);
             noteData.put("fileUrl", uri.toString());
-            noteData.put("fileName", uniqueFileName); // Store unique file name for Firebase Storage
-            noteData.put("originalFileName", originalFileName); // Store actual file name for user reference
+            noteData.put("fileName", uniqueFileName);
+            noteData.put("originalFileName", originalFileName);
 
             db.collection("notes").add(noteData).addOnSuccessListener(documentReference -> {
                 progressDialog.dismiss();
@@ -132,16 +125,17 @@ public class NotesUploadActivity extends AppCompatActivity {
                 fileUri = null;
                 tvSelectedFile.setText("No file selected");
                 departmentDropdown.setText("");
-                fetchNotes(); // Refresh List
+                fetchNotes();
             }).addOnFailureListener(e -> {
                 progressDialog.dismiss();
                 Toast.makeText(this, "Upload Failed!", Toast.LENGTH_SHORT).show();
             });
         })).addOnFailureListener(e -> {
             progressDialog.dismiss();
-            Toast.makeText(this, "File Upload Failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File Upload Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
+
     private String getFileNameFromUri(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
@@ -161,23 +155,32 @@ public class NotesUploadActivity extends AppCompatActivity {
         return result;
     }
 
-
     private void fetchNotes() {
-        db.collection("notes").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                notesList.clear(); // List reset karo taaki purane data repeat na ho
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    NoteModel note = document.toObject(NoteModel.class);
+        // 🔥 Dynamic Department Fetch करणे (Firestore मधून)
+        String studentDepartment = getStudentDepartmentFromFirestore();
 
-                    // ✅ Sirf wahi notes dikhaye jo "All" ya student ke department ke hai
-                    if (note.getDepartment().equals("All") || note.getDepartment().equals(notesList)) {
-                        Log.d("FETCH_NOTES", "Note: " + note.getFileName());
-                        notesList.add(note);
+        db.collection("notes")
+                .whereEqualTo("department", studentDepartment) // 🔥 Student च्या विभागाचे Notes फक्त घेतो
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        notesList.clear();
+                        for (DocumentSnapshot document : task.getResult()) {
+                            NoteModel note = document.toObject(NoteModel.class);
+                            if (note != null) {
+                                note.setDocumentId(document.getId());
+                            }
+                            notesList.add(note);
+                        }
+                        notesAdapter.notifyDataSetChanged(); // 🔥 RecyclerView Update कर
+                    } else {
+                        Log.e("FETCH_NOTES", "Error getting notes", task.getException());
                     }
-                }
-                notesAdapter.notifyDataSetChanged(); // UI ko update karo
-            }
-        });
+                });
     }
 
+
+    private String getStudentDepartmentFromFirestore() {
+        return "0"; //
+    }
 }

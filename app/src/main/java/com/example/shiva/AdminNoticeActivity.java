@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,16 +80,15 @@ public class AdminNoticeActivity extends AppCompatActivity {
         Notice notice = new Notice(noticeId, title, description, department);
 
         // Store in Firestore
-        noticeRef.set(notice).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(AdminNoticeActivity.this, "Notice Posted Successfully", Toast.LENGTH_SHORT).show();
-                    etNoticeTitle.setText("");
-                    etNoticeDescription.setText("");
-                } else {
-                    Toast.makeText(AdminNoticeActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                }
+        noticeRef.set(notice).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d("NOTICE_UPLOAD", "Notice Posted Successfully: " + noticeId);
+                Toast.makeText(AdminNoticeActivity.this, "Notice Posted Successfully", Toast.LENGTH_SHORT).show();
+                etNoticeTitle.setText("");
+                etNoticeDescription.setText("");
+            } else {
+                Log.e("NOTICE_UPLOAD", "Error Posting Notice: ", task.getException());
+                Toast.makeText(AdminNoticeActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

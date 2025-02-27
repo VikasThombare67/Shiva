@@ -4,53 +4,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/g_background">
 
+    <!-- Department Selection -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_department"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Select Department"
-        app:endIconMode="dropdown_menu">
+        app:endIconMode="dropdown_menu"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp">
 
         <AutoCompleteTextView
             android:id="@+id/auto_complete_department"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Selected File Text -->
     <TextView
         android:id="@+id/tv_selected_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No file selected"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
+        android:textStyle="italic"
+        android:textColor="@android:color/white"
+        android:gravity="center"
         android:layout_marginTop="8dp"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        android:background="@drawable/textview_background"/>
 
+    <!-- Select File Button -->
     <Button
         android:id="@+id/btn_select_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select File"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@drawable/ybutton_gradient"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
 
+    <!-- Upload File Button -->
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload File"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#F50000"
-        android:textColor="@android:color/white"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_red"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"/>
 
-
+    <!-- RecyclerView for Uploaded PDFs -->
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="16dp"
         android:id="@+id/recycler_notes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

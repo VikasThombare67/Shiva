@@ -12,25 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Admin Button
-        Button buttonAdmin = findViewById(R.id.button_admin);
-        buttonAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AdminLoginActivityOld.class);
-                startActivity(intent);
-            }
-        });
-
-        // User Button
-        Button buttonUser = findViewById(R.id.button_user);
-        buttonUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UserLoginRegisterActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }
+
