@@ -3,6 +3,7 @@ package com.example.shiva;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -15,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shiva.adapter.NotesAdapter;
 import com.example.shiva.model.Note;
 import com.example.shiva.model.NoteModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -48,20 +52,36 @@ public class NotesViewActivity extends AppCompatActivity {
     }
 
     private void fetchNotes() {
-        progressBar.setVisibility(View.VISIBLE);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(this, "❌ Please log in first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        db.collection("notes").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                notesList.clear();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    NoteModel note = document.toObject(NoteModel.class);
-                    notesList.add(note);
-                }
-                adapter.notifyDataSetChanged();
-            } else {
-                Toast.makeText(this, "Failed to load notes!", Toast.LENGTH_SHORT).show();
+        db.collection("students").document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String studentDepartment = documentSnapshot.getString("department");
+
+                db.collection("notes")
+                        .whereEqualTo("department", studentDepartment) // 🔥 फक्त Student च्या विभागाचे Notes घ्या
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                notesList.clear();
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    NoteModel note = document.toObject(NoteModel.class);
+                                    if (note != null) {
+                                        note.setDocumentId(document.getId());
+                                        note.setFileName(document.getString("originalFileName")); // ✅ Get Original PDF Name
+                                    }
+                                    notesList.add(note);
+                                }
+                                adapter.notifyDataSetChanged(); // UI Update
+                            } else {
+                                Log.e("FETCH_NOTES", "❌ Error getting notes", task.getException());
+                            }
+                        });
             }
-            progressBar.setVisibility(View.GONE);
         });
     }
 }

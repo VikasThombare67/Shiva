@@ -8,6 +8,7 @@
     android:elevation="4dp"
     android:layout_margin="8dp">
 
+    <!-- Department Name -->
     <TextView
         android:id="@+id/tv_department"
         android:layout_width="wrap_content"
@@ -16,6 +17,18 @@
         android:textSize="16sp"
         android:textStyle="bold"/>
 
+    <!-- ✅ PDF File Name Show करने के लिए नया TextView -->
+    <TextView
+        android:id="@+id/tvfilename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="File Name: "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:paddingTop="4dp"/>
+
+    <!-- View File Link -->
     <TextView
         android:id="@+id/tv_file_url"
         android:layout_width="wrap_content"

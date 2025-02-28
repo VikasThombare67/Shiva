@@ -22,6 +22,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private List<NoteModel> notesList;
     private Context context;
 
+
     public NotesAdapter(List<NoteModel> notesList, Context context) {
         this.notesList = notesList;
         this.context = context;
@@ -39,6 +40,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         NoteModel note = notesList.get(position);
         holder.tvDepartment.setText("Department: " + note.getDepartment());
         holder.tvFileUrl.setText("View File");
+        holder.tvfilename.setText(note.getFileName());
 
         holder.tvFileUrl.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(note.getFileUrl()));
@@ -53,11 +55,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvDepartment, tvFileUrl;
-
+        TextView tvfilename;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDepartment = itemView.findViewById(R.id.tv_department);
             tvFileUrl = itemView.findViewById(R.id.tv_file_url);
+            tvfilename= itemView.findViewById(R.id.tvfilename);
         }
     }
 }

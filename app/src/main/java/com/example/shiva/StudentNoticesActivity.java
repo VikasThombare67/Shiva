@@ -7,12 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
+
 import com.example.shiva.adapter.NoticeAdapter;
 import com.example.shiva.model.Notice;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudentNoticesActivity extends AppCompatActivity {
@@ -31,6 +38,7 @@ public class StudentNoticesActivity extends AppCompatActivity {
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
+
 
 // ✅ Firestore Offline Mode Enable Kara
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -56,22 +64,34 @@ public class StudentNoticesActivity extends AppCompatActivity {
     }
 
     private void fetchNotices() {
-        db.collection("notices")
-                .addSnapshotListener((queryDocumentSnapshots, e) -> {
-                    if (e != null) {
-                        Log.e(TAG, "Error fetching notices", e);
-                        return;
-                    }
-                    if (queryDocumentSnapshots != null) {
-                        noticeList.clear();
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Notice notice = document.toObject(Notice.class);
-                            if (notice.getDepartment().equals("All") || notice.getDepartment().equals(studentDepartment)) {
-                                noticeList.add(notice);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(this, "❌ Please log in first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("students").document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String studentDepartment = documentSnapshot.getString("department");
+
+                db.collection("notices")
+                        .whereIn("department", Arrays.asList(studentDepartment, "All")) // 🔥 Student च्या विभागाचे आणि "All" Notices घ्या!
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                noticeList.clear();
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    Notice notice = document.toObject(Notice.class);
+                                    noticeList.add(notice);
+                                }
+                                noticeAdapter.notifyDataSetChanged();
+                            } else {
+                                Log.e("FETCH_NOTICES", "❌ Error getting notices", task.getException());
                             }
-                        }
-                        noticeAdapter.notifyDataSetChanged();
-                    }
-                });
+                        });
+            }
+        });
     }
 }
