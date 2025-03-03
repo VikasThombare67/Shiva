@@ -114,7 +114,7 @@
                 <ImageView
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:src="@drawable/note"
+                    android:src="@drawable/notes"
                     app:tint="@android:color/white" />
 
                 <TextView

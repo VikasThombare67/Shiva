@@ -1,14 +1,6 @@
 package com.example.shiva;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,15 +9,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shiva.adapter.NoticeAdapter;
 import com.example.shiva.model.Notice;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +28,9 @@ public class AdminNoticeActivity extends AppCompatActivity {
     private EditText etNoticeTitle, etNoticeDescription;
     private Spinner spinnerDepartment;
     private Button btnPostNotice;
+    private RecyclerView recyclerViewNotices;
+    private NoticeAdapter noticeAdapter;
+    private List<Notice> noticeList;
     private FirebaseFirestore db;
 
     @Override
@@ -47,6 +44,13 @@ public class AdminNoticeActivity extends AppCompatActivity {
         etNoticeDescription = findViewById(R.id.et_notice_description);
         spinnerDepartment = findViewById(R.id.spinner_department);
         btnPostNotice = findViewById(R.id.btn_post_notice);
+        recyclerViewNotices = findViewById(R.id.recyclerViewNotices);
+
+        // Setup RecyclerView
+        recyclerViewNotices.setLayoutManager(new LinearLayoutManager(this));
+        noticeList = new ArrayList<>();
+        noticeAdapter = new NoticeAdapter(noticeList, true);  // 🔥 Admin hai toh 'true' pass karein (Delete button dikhaye)
+        recyclerViewNotices.setAdapter(noticeAdapter);
 
         // Populate Spinner with Departments and "All"
         List<String> departments = Arrays.asList("All", "Computer", "IT", "Civil", "Mechanical", "Electronics");
@@ -61,6 +65,9 @@ public class AdminNoticeActivity extends AppCompatActivity {
                 postNotice();
             }
         });
+
+        // Fetch and display notices
+        fetchNotices();
     }
 
     private void postNotice() {
@@ -86,9 +93,25 @@ public class AdminNoticeActivity extends AppCompatActivity {
                 Toast.makeText(AdminNoticeActivity.this, "Notice Posted Successfully", Toast.LENGTH_SHORT).show();
                 etNoticeTitle.setText("");
                 etNoticeDescription.setText("");
+                fetchNotices();  // Refresh notices list
             } else {
                 Log.e("NOTICE_UPLOAD", "Error Posting Notice: ", task.getException());
                 Toast.makeText(AdminNoticeActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void fetchNotices() {
+        db.collection("notices").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                noticeList.clear();
+                for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                    Notice notice = document.toObject(Notice.class);
+                    noticeList.add(notice);
+                }
+                noticeAdapter.notifyDataSetChanged();
+            } else {
+                Log.e("FETCH_NOTICES", "Error getting notices", task.getException());
             }
         });
     }

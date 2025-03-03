@@ -14,10 +14,9 @@ import com.example.shiva.model.Notice;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +56,7 @@ public class StudentNoticesActivity extends AppCompatActivity {
         recyclerViewNotices.setLayoutManager(new LinearLayoutManager(this));
 
         noticeList = new ArrayList<>();
-        noticeAdapter = new NoticeAdapter(noticeList);
+        noticeAdapter = new NoticeAdapter(noticeList, false);
         recyclerViewNotices.setAdapter(noticeAdapter);
 
         fetchNotices();

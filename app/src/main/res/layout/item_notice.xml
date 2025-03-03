@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
     android:background="@android:color/white"
     android:elevation="4dp"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/tv_notice_title"
@@ -32,4 +32,17 @@
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:paddingTop="4dp" />
+
+    <!-- 🔥 Delete button (sirf admin ke liye visible hoga) -->
+    <Button
+        android:id="@+id/btn_delete_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="Delete"
+        android:textColor="@android:color/white"
+        />  <!-- Default: hidden -->
 </LinearLayout>
+
+
