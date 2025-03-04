@@ -6,4 +6,11 @@
     <string name="projects">Projects</string>
     <string name="all_in_1_solution_nmsbte_diploma_study_material">All in 1 Solution\nMSBTE Diploma Study Material</string>
     <string name="developer">Developer</string>
+    <string-array name="branch_array">
+        <item>Computer</item>
+        <item>IT</item>
+        <item>Electronics</item>
+        <item>Mechanical</item>
+        <item>Civil</item>
+    </string-array>
 </resources>

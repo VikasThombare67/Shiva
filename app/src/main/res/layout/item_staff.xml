@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+
+
+    android:backgroundTint="@android:color/white"
+    android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <!-- Staff Image -->
+        <ImageView
+            android:id="@+id/iv_staff_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="12dp"/>
+
+        <!-- Staff Information -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_staff_name"
+                android:text="Staff Name"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:textColor="#000000"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tv_staff_department"
+                android:text="Department"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:textColor="#616161"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_staff_contact"
+                android:text="Contact"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#616161"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
