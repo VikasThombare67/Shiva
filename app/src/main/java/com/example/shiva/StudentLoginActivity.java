@@ -2,6 +2,7 @@ package com.example.shiva;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StudentLoginActivity extends AppCompatActivity {
@@ -25,7 +27,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
-    TextView tvSignup, tvForgotPassword;
+    private TextView tvSignup, tvForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,12 @@ public class StudentLoginActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         tvSignup = findViewById(R.id.tv_signup);
-        tvForgotPassword = findViewById(R.id.tv_forgot_password);  // Forgot Password ID
+        tvForgotPassword = findViewById(R.id.tv_forgot_password);
         etEmail = findViewById(R.id.et_student_email);
         etPassword = findViewById(R.id.et_student_password);
         btnLogin = findViewById(R.id.btn_student_login);
 
-        // Login button listener
+        // 🔄 Login button listener
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +51,7 @@ public class StudentLoginActivity extends AppCompatActivity {
             }
         });
 
-        // Sign Up button listener
+        // 🔄 Sign Up button listener
         tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,16 +59,16 @@ public class StudentLoginActivity extends AppCompatActivity {
             }
         });
 
-        // Forgot Password listener
+        // 🔄 Forgot Password listener
         tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showForgotPasswordDialog();  // Dialog to enter email
+                showForgotPasswordDialog();
             }
         });
     }
 
-    // Method to show Forgot Password dialog
+    // 🔄 Method to show Forgot Password dialog
     private void showForgotPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Reset Password");
@@ -82,7 +84,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(StudentLoginActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                 } else {
-                    resetPassword(email);  // Reset password via Firebase
+                    resetPassword(email);
                 }
             }
         });
@@ -97,7 +99,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // Firebase password reset method
+    // 🔄 Firebase password reset method
     private void resetPassword(String email) {
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -108,6 +110,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         });
     }
 
+    // 🔄 Validate and login student
     private void validateStudentLogin() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -117,7 +120,6 @@ public class StudentLoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Firebase login
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = mAuth.getCurrentUser();
@@ -125,6 +127,19 @@ public class StudentLoginActivity extends AppCompatActivity {
                     db.collection("students").document(user.getUid()).get()
                             .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful() && task1.getResult().exists()) {
+                                    DocumentSnapshot document = task1.getResult();
+                                    String department = document.getString("department");
+                                    String studentEmail = document.getString("email");
+
+                                    // 🔄 Save department and email to SharedPreferences
+                                    if (department != null && studentEmail != null) {
+                                        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("department", department);
+                                        editor.putString("email", studentEmail);
+                                        editor.apply();
+                                    }
+
                                     Toast.makeText(StudentLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(StudentLoginActivity.this, StudentHomeActivity.class));
                                     finish();

@@ -1,5 +1,6 @@
 package com.example.shiva;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,51 +34,61 @@ public class StaffViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.staff_view);
 
-        // Initialize Views
+        // 🔄 Initialize Views
         recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progressBar);
 
-        // RecyclerView Setup
+        // 🔄 RecyclerView Setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         staffList = new ArrayList<>();
         staffAdapter = new StaffAdapter(this, staffList);
         recyclerView.setAdapter(staffAdapter);
 
-        // Fetch Data from Firebase
+        // 🔄 Fetch Data from Firebase
         fetchStaffData();
     }
 
+    // 🔄 Proper `fetchStaffData()` method with SharedPreferences handling
     private void fetchStaffData() {
         progressBar.setVisibility(View.VISIBLE);
-        DatabaseReference staffRef = FirebaseDatabase.getInstance().getReference("Staff");
 
-        staffRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    Log.d("FirebaseCheck", "DataSnapshot Exists: " + snapshot.getChildrenCount());
-                    staffList.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Stafff staff = dataSnapshot.getValue(Stafff.class);
-                        if (staff != null) {
-                            Log.d("StaffData", "Name: " + staff.getName() + ", Department: " + staff.getDepartment());
-                            staffList.add(staff);
-                        } else {
-                            Log.e("StaffData", "staff is null");
+        // 🔄 SharedPreferences madhun student's department ghe
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String studentDept = preferences.getString("department", "");  // Default: ""
+
+        Log.d("DeptCheck", "Student Department: " + studentDept);  // 🔄 Log lavun check kar
+
+        if (!studentDept.isEmpty()) {  // 🔄 department data asel tarach fetch kar
+            DatabaseReference staffRef = FirebaseDatabase.getInstance().getReference("Staff").child(studentDept);
+
+            staffRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        staffList.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Stafff staff = dataSnapshot.getValue(Stafff.class);
+                            if (staff != null) {
+                                Log.d("StaffData", "Name: " + staff.getName() + ", Department: " + staff.getDepartment());
+                                staffList.add(staff);
+                            }
                         }
+                        staffAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(StaffViewActivity.this, "No staff found for your department!", Toast.LENGTH_SHORT).show();
                     }
-                    staffAdapter.notifyDataSetChanged();
-                } else {
-                    Log.e("FirebaseCheck", "DataSnapshot does not exist!");
+                    progressBar.setVisibility(View.GONE);
                 }
-                progressBar.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", error.getMessage());
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("FirebaseError", error.getMessage());
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(this, "Department information missing!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

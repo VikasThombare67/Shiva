@@ -1,61 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
     android:layout_margin="8dp"
-
-
     android:backgroundTint="@android:color/white"
-    android="http://schemas.android.com/apk/res/android"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="16dp"
+        android:background="@drawable/card_background"
+        android:gravity="center_vertical">
 
         <!-- Staff Image -->
         <ImageView
             android:id="@+id/iv_staff_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:layout_marginEnd="12dp"/>
+            android:background="@drawable/circal_ic"
+            android:layout_marginEnd="16dp" />
 
-        <!-- Staff Information -->
+        <!-- Staff Details -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Staff Name with Title -->
+            <TextView
+                android:id="@+id/tv_staff_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Staff name: "
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_staff_name"
-                android:text="Staff Name"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:textColor="#000000"
-                android:layout_marginBottom="4dp"/>
+                android:layout_height="wrap_content"
+                android:text="John Doe"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
 
+            <!-- Department -->
             <TextView
                 android:id="@+id/tv_staff_department"
-                android:text="Department"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DEPT"
                 android:textSize="14sp"
-                android:textColor="#616161"
-                android:layout_marginBottom="2dp"/>
+                android:textColor="@android:color/holo_blue_dark" />
 
+            <!-- Contact -->
             <TextView
                 android:id="@+id/tv_staff_contact"
-                android:text="Contact"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact: +91 9876543210"
                 android:textSize="14sp"
-                android:textColor="#616161"/>
+                android:textColor="@android:color/darker_gray" />
         </LinearLayout>
+
+        <!-- Call Icon -->
+        <ImageView
+            android:id="@+id/iv_call_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_call"
+            android:tint="@android:color/holo_green_dark"
+            android:layout_marginStart="8dp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
