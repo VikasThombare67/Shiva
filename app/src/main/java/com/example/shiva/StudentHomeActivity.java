@@ -3,7 +3,6 @@ package com.example.shiva;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -27,7 +26,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         cardNotices.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, StudentNoticesActivity.class)));
         cardStaff.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, StaffViewActivity.class)));
         cardNotes.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, NotesViewActivity.class)));
-        cardReports.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, ReportsViewActivity.class)));
+        cardReports.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, ManualView.class)));
 
         btnLogout.setOnClickListener(v -> {
             SharedPreferences preferences = getSharedPreferences("StudentPrefs", MODE_PRIVATE);
