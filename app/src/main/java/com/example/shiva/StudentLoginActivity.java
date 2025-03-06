@@ -133,10 +133,10 @@ public class StudentLoginActivity extends AppCompatActivity {
 
                                     // 🔄 Save department and email to SharedPreferences
                                     if (department != null && studentEmail != null) {
-                                        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                        SharedPreferences preferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
-                                        editor.putString("department", department);
-                                        editor.putString("email", studentEmail);
+                                        editor.putString("student_department", department);  // 🔄 इथे `department` चा Key बदलून `student_department` करा
+                                        editor.putString("student_email", studentEmail);
                                         editor.apply();
                                     }
 

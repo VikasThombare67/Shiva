@@ -1,51 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F0F4F8"
     tools:context=".ManualUpload">
-    <LinearLayout
+
+    <!-- Header Section -->
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Manual"
+        android:textSize="24sp"
+        android:textColor="#1E88E5"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- CardView for Form -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <EditText
-            android:id="@+id/etManualTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Manual Title" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <Spinner
-            android:id="@+id/spinnerDepartment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/branch_array" />
+            <!-- Manual Title Input -->
+            <EditText
+                android:id="@+id/etManualTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="📄 Enter Manual Title"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="#333"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"/>
 
-        <Button
-            android:id="@+id/btnSelectPdf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select PDF" />
+            <!-- Department Spinner -->
+            <Spinner
+                android:id="@+id/spinnerDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginBottom="16dp"
+                android:entries="@array/branch_array"/>
 
-        <Button
-            android:id="@+id/btnUploadPdf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Manual" />
+            <!-- Select PDF Button -->
+            <Button
+                android:id="@+id/btnSelectPdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📁 Select PDF"
+                android:textColor="#FFF"
+                android:backgroundTint="#42A5F5"
+                android:layout_marginBottom="12dp"
+                android:drawableStart="@android:drawable/ic_menu_upload"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+            <!-- Upload Manual Button -->
+            <Button
+                android:id="@+id/btnUploadPdf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⬆️ Upload Manual"
+                android:textColor="#FFF"
+                android:backgroundTint="#66BB6A"
+                android:layout_marginBottom="20dp"
+                android:drawableStart="@android:drawable/ic_menu_send"/>
 
-    </LinearLayout>
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
 
-
-
-
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

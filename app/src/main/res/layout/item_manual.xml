@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    android:background="@android:color/white"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp"
-        android:background="@android:color/white"
-        android:elevation="2dp"
-        tools:ignore="MissingConstraints">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvManualTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Manual Title"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:paddingBottom="4dp" />
 
         <TextView
             android:id="@+id/tvManualDepartment"
@@ -26,9 +30,24 @@
             android:layout_height="wrap_content"
             android:text="Department"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="#555"
+            android:paddingBottom="4dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="4dp" />
+
+        <TextView
+            android:id="@+id/tvViewManual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Manual"
+            android:textSize="14sp"
+            android:textColor="#1E90FF"
+            android:textStyle="bold"
+            android:paddingTop="4dp" />
 
     </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

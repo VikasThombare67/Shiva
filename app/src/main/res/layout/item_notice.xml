@@ -1,48 +1,81 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<LinearLayout android:layout_width="match_parent"
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@android:color/white"
-    android:elevation="4dp"
-    android:layout_margin="8dp"
+    android:padding="16dp"
+    android:background="@drawable/notice_card_bg"
+    android:elevation="6dp"
+    android:layout_marginBottom="12dp"
+    android:layout_marginHorizontal="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tv_notice_title"
+    <!-- 🛠️ Header Layout with Icon -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notice Title"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
 
+        <!-- 📌 Notice Icon -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/notes"
+            android:layout_marginEnd="8dp"
+            app:tint="#6200EE" />
+
+        <!-- 📢 Notice Title -->
+        <TextView
+            android:id="@+id/tv_notice_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📌 Notice Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#6200EE"
+            android:paddingBottom="4dp" />
+    </LinearLayout>
+
+    <!-- 📏 Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#03DAC5"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 📝 Notice Description -->
     <TextView
         android:id="@+id/tv_notice_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notice Description"
-        android:textSize="16sp"
-        android:paddingTop="4dp" />
+        android:text="This is a sample description for the notice."
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:lineSpacingExtra="2dp"
+        android:paddingBottom="8dp" />
 
+    <!-- 📚 Notice Department -->
     <TextView
         android:id="@+id/tv_notice_department"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Department: All"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
+        android:text="📚 Department: All"
+        android:textSize="13sp"
+        android:textColor="#888888"
         android:paddingTop="4dp" />
 
-    <!-- 🔥 Delete button (sirf admin ke liye visible hoga) -->
+    <!-- 🔥 Delete Button (Admin Only) -->
     <Button
         android:id="@+id/btn_delete_notice"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:backgroundTint="@android:color/holo_red_dark"
+        android:backgroundTint="#B00020"
         android:text="Delete"
-        android:textColor="@android:color/white"
-        />  <!-- Default: hidden -->
+        android:textColor="#FFFFFF"
+        android:visibility="gone" /> <!-- Default: Hidden -->
+
 </LinearLayout>
-
-

@@ -52,13 +52,13 @@ public class StaffViewActivity extends AppCompatActivity {
     private void fetchStaffData() {
         progressBar.setVisibility(View.VISIBLE);
 
-        // 🔄 SharedPreferences madhun student's department ghe
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String studentDept = preferences.getString("department", "");  // Default: ""
+        // 🔄 SharedPreferences मधून student's department मिळव
+        SharedPreferences preferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String studentDept = preferences.getString("student_department", "");  // 🔄 इथे Key बदलला!
 
-        Log.d("DeptCheck", "Student Department: " + studentDept);  // 🔄 Log lavun check kar
+        Log.d("DeptCheck", "Student Department: " + studentDept);  // 🔄 Log Check
 
-        if (!studentDept.isEmpty()) {  // 🔄 department data asel tarach fetch kar
+        if (!studentDept.isEmpty()) {  // 🔄 department data असेल तरच fetch कर
             DatabaseReference staffRef = FirebaseDatabase.getInstance().getReference("Staff").child(studentDept);
 
             staffRef.addValueEventListener(new ValueEventListener() {
