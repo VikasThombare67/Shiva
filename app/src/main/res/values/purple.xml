@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>  <color name="purple_light">#D8BFD8</color> <!-- Light Purple -->
+    <color name="purple_dark">#4B0082</color> <!-- Dark Purple -->
+    <color name="purple_primary">#800080</color> <!-- Standard Purple -->
+</resources>

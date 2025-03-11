@@ -16,9 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io") // ✅ Kotlin-style JitPack Repository
     }
 }
 
 rootProject.name = "shiva"
 include(":app")
- 

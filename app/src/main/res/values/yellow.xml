@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yellow_light">#FFF9C4</color> <!-- Light Yellow -->
+    <color name="yellow_dark">#FBC02D</color> <!-- Dark Yellow -->
+    <color name="yellow_gold">#FFD700</color> <!-- Gold Yellow -->
+
+</resources>
