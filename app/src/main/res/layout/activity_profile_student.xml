@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_person" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Tap to select profile image"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_dark"/>
+
+    <!-- Personal Information -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Personal Information"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingTop="10dp"/>
+
+    <EditText
+        android:id="@+id/etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Full Name"/>
+
+    <EditText
+        android:id="@+id/etDOB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date of Birth (DD/MM/YYYY)"/>
+    <EditText
+        android:id="@+id/etBranch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Branch"
+        android:inputType="text" />
+
+
+    <Spinner
+        android:id="@+id/spinnerGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/gender_options"/>
+
+    <EditText
+        android:id="@+id/etBloodGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Blood Group"/>
+
+    <EditText
+        android:id="@+id/etAadhaar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Aadhaar Number"/>
+
+    <EditText
+        android:id="@+id/etNationality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nationality"/>
+
+    <EditText
+        android:id="@+id/etCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Category (General/OBC/SC/ST/NT/EWS)"/>
+
+    <EditText
+        android:id="@+id/etReligion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Religion"/>
+
+    <EditText
+        android:id="@+id/etCaste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Caste"/>
+
+    <EditText
+        android:id="@+id/etPermanentAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Permanent Address"/>
+
+    <EditText
+        android:id="@+id/etCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City/Village"/>
+
+    <EditText
+        android:id="@+id/etState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="State"/>
+
+    <EditText
+        android:id="@+id/etPinCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Pin Code"/>
+
+    <EditText
+        android:id="@+id/etMobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mobile Number"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email ID"/>
+
+    <EditText
+        android:id="@+id/etGuardianName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Parent/Guardian Name"/>
+
+    <EditText
+        android:id="@+id/etGuardianContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Parent/Guardian Contact"/>
+
+    <EditText
+        android:id="@+id/etGuardianOccupation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Parent/Guardian Occupation"/>
+
+    <!-- Academic Details -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Academic Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingTop="10dp"/>
+
+    <EditText
+        android:id="@+id/etSSC_School"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="SSC School Name"/>
+
+    <EditText
+        android:id="@+id/etSSC_Board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="SSC Board Name"/>
+
+    <EditText
+        android:id="@+id/etSSC_Year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="SSC Year of Passing"/>
+
+    <EditText
+        android:id="@+id/etSSC_Percentage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="SSC Percentage/CGPA"/>
+
+    <EditText
+        android:id="@+id/etHSC_College"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="HSC College Name"/>
+
+    <EditText
+        android:id="@+id/etHSC_Board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="HSC Board Name"/>
+
+    <EditText
+        android:id="@+id/etHSC_Year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="HSC Year of Passing"/>
+
+    <EditText
+        android:id="@+id/etHSC_Percentage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="HSC Percentage/CGPA"/>
+
+    <!-- Update Profile Button -->
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Profile"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"/>
+
+  </LinearLayout>
+</ScrollView>

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StudentHomeActivity extends AppCompatActivity {
 
-    private CardView cardNotices, cardStaff, cardNotes, cardReports;
+    private CardView cardNotices, cardStaff, cardNotes, cardReports,cardprofile;
     private Button btnLogout;
     private ImageSlider imageSlider; // Image Slider Variable
 
@@ -30,7 +30,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         cardNotes = findViewById(R.id.card_notes);
         cardReports = findViewById(R.id.card_reports);
         btnLogout = findViewById(R.id.btn_logout);
-
+        cardprofile= findViewById(R.id.card_profile);
         // 🔹 Setup Image Slider
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.img1, "Welcome to College", ScaleTypes.FIT));
@@ -44,7 +44,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         cardStaff.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, StaffViewActivity.class)));
         cardNotes.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, NotesViewActivity.class)));
         cardReports.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, ManualView.class)));
-
+        cardprofile.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this,StudentProfileActivity.class)));
         // 🔹 Logout Functionality
         btnLogout.setOnClickListener(v -> {
             SharedPreferences preferences = getSharedPreferences("StudentPrefs", MODE_PRIVATE);
