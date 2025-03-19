@@ -1,220 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
 
-    <!-- Profile Image -->
-    <ImageView
-        android:id="@+id/imgProfile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:background="@android:color/darker_gray"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_person" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Profile Image Selection -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Tap to select profile image"
-        android:textSize="14sp"
-        android:textColor="@android:color/holo_blue_dark"/>
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <!-- Personal Information -->
+      <ImageView
+          android:id="@+id/imgProfile"
+          android:layout_width="120dp"
+          android:layout_height="120dp"
+          android:src="@drawable/ic_person"
+          android:scaleType="centerCrop"
+          android:background="@android:color/darker_gray"
+          android:layout_marginBottom="8dp"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Tap to select profile image"
+          android:textSize="14sp"
+          android:textColor="@android:color/holo_blue_dark"/>
+    </LinearLayout>
+
+    <!-- Personal Details -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Personal Information"
+        android:text="Personal Details"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingTop="10dp"/>
 
-    <EditText
-        android:id="@+id/etFullName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"/>
+        app:boxStrokeColor="@color/black">
 
-    <EditText
-        android:id="@+id/etDOB"
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/etFullName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Full Name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/etFatherName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Father's Name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/etMotherName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Mother's Name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date of Birth (DD/MM/YYYY)"/>
-    <EditText
-        android:id="@+id/etBranch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Branch"
-        android:inputType="text" />
-
-
+        android:text="Select Gender"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp" />
+    <!-- Gender Selection -->
     <Spinner
         android:id="@+id/spinnerGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/gender_options"/>
 
-    <EditText
-        android:id="@+id/etBloodGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Blood Group"/>
-
-    <EditText
-        android:id="@+id/etAadhaar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Aadhaar Number"/>
-
-    <EditText
-        android:id="@+id/etNationality"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nationality"/>
-
-    <EditText
-        android:id="@+id/etCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Category (General/OBC/SC/ST/NT/EWS)"/>
-
-    <EditText
-        android:id="@+id/etReligion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Religion"/>
-
-    <EditText
-        android:id="@+id/etCaste"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Caste"/>
-
-    <EditText
-        android:id="@+id/etPermanentAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Permanent Address"/>
-
-    <EditText
-        android:id="@+id/etCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="City/Village"/>
-
-    <EditText
-        android:id="@+id/etState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="State"/>
-
-    <EditText
-        android:id="@+id/etPinCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Pin Code"/>
-
-    <EditText
-        android:id="@+id/etMobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mobile Number"/>
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email ID"/>
-
-    <EditText
-        android:id="@+id/etGuardianName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Parent/Guardian Name"/>
-
-    <EditText
-        android:id="@+id/etGuardianContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Parent/Guardian Contact"/>
-
-    <EditText
-        android:id="@+id/etGuardianOccupation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Parent/Guardian Occupation"/>
-
-    <!-- Academic Details -->
+    <!-- Category & Religion -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Academic Details"
+        android:text="Select Category"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp" />
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/category_options"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Religion"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp" />
+
+    <Spinner
+        android:id="@+id/spinnerReligion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/religion_options"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/etDOB"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Date of Birth (DD/MM/YYYY)"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/white">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select your last completed education"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingBottom="4dp"
+            android:textColor="@android:color/black" />
+
+        <RadioGroup
+            android:id="@+id/rgEducation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+          <RadioButton
+              android:id="@+id/rbSSC"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="SSC"
+              android:checked="true" />
+
+          <RadioButton
+              android:id="@+id/rbHSC"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="HSC" />
+        </RadioGroup>
+
+        <!-- SSC Details -->
+        <LinearLayout
+            android:id="@+id/layoutSSC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSSC_School"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="SSC School Name" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSSC_Board"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="SSC Board" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <!-- SSC Percentage -->
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Enter SSC Percentage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSSCPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <!-- SSC Marksheet Upload -->
+          <Button
+              android:id="@+id/btnUploadSSC"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Upload SSC Marksheet (PDF)"
+              android:backgroundTint="@android:color/holo_blue_dark"
+              android:textColor="@android:color/white" />
+
+          <TextView
+              android:id="@+id/tvSSCMarksheet"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No file selected"
+              android:textSize="14sp"
+              android:textColor="@android:color/darker_gray"
+              android:paddingBottom="8dp" />
+        </LinearLayout>
+
+        <!-- HSC Details -->
+        <LinearLayout
+            android:id="@+id/layoutHSC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etHSC_College"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="HSC College Name" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etHSC_Board"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="HSC Board" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <!-- HSC Percentage -->
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Enter HSC Percentage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etHSCPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <!-- HSC Marksheet Upload -->
+          <Button
+              android:id="@+id/btnUploadHSC"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Upload HSC Marksheet (PDF)"
+              android:backgroundTint="@android:color/holo_blue_dark"
+              android:textColor="@android:color/white" />
+
+          <TextView
+              android:id="@+id/tvHSCMarksheet"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No file selected"
+              android:textSize="14sp"
+              android:textColor="@android:color/darker_gray"
+              android:paddingBottom="8dp" />
+        </LinearLayout>
+
+
+
+      </LinearLayout>
+    </ScrollView>
+
+
+    <!-- Certificates Upload Section -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Certificates"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp"/>
 
-    <EditText
-        android:id="@+id/etSSC_School"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="SSC School Name"/>
-
-    <EditText
-        android:id="@+id/etSSC_Board"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="SSC Board Name"/>
-
-    <EditText
-        android:id="@+id/etSSC_Year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="SSC Year of Passing"/>
-
-    <EditText
-        android:id="@+id/etSSC_Percentage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="SSC Percentage/CGPA"/>
-
-    <EditText
-        android:id="@+id/etHSC_College"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="HSC College Name"/>
-
-    <EditText
-        android:id="@+id/etHSC_Board"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="HSC Board Name"/>
-
-    <EditText
-        android:id="@+id/etHSC_Year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="HSC Year of Passing"/>
-
-    <EditText
-        android:id="@+id/etHSC_Percentage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="HSC Percentage/CGPA"/>
-
-    <!-- Update Profile Button -->
+    <!-- Caste Certificate Upload -->
     <Button
-        android:id="@+id/btnUpdateProfile"
+        android:id="@+id/btnUploadCaste"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Profile"
+        android:text="Select Caste Certificate (PDF)"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tvCasteCertificate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No file selected"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="8dp"/>
+
+    <!-- Income Certificate Upload -->
+    <Button
+        android:id="@+id/btnUploadIncome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Income Certificate (PDF)"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tvIncomeCertificate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No file selected"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="8dp"/>
+
+    <!-- Nationality/Domicile Certificate Upload -->
+    <Button
+        android:id="@+id/btnUploadNationality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Nationality/Domicile (PDF)"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tvNationalityCertificate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No file selected"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="8dp"/>
+
+    <!-- Caste Validity Upload -->
+    <Button
+        android:id="@+id/btnUploadValidity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Caste Validity (PDF)"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/tvCasteValidity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No file selected"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="8dp"/>
+
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
         android:textAllCaps="false"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:textColor="@android:color/white"

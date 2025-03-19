@@ -160,6 +160,74 @@
                     android:gravity="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <!-- Student Details Card (NEW) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_student_details"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_margin="8dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/purple_500"
+            app:layout_columnWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/student"
+                    app:tint="@android:color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student Details"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Extra Data Card (NEW) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_extra_data"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:layout_margin="8dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/teal_700"
+            app:layout_columnWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/book"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Book"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </androidx.gridlayout.widget.GridLayout>
 
     <!-- Logout Button -->

@@ -50,7 +50,11 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation ("com.squareup.picasso:picasso:2.8")
+    implementation ("com.google.firebase:firebase-firestore:24.9.1")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("javax.annotation:javax.annotation-api:1.3.2")
 
-    }
+
+}
 
 
