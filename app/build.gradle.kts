@@ -53,6 +53,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore:24.9.1")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("javax.annotation:javax.annotation-api:1.3.2")
+    implementation ("com.google.firebase:firebase-storage:20.2.1")
 
 
 }

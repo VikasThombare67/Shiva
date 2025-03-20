@@ -154,10 +154,113 @@ public class StudentProfileActivity extends AppCompatActivity {
 
     private void submitForm() {
         String fullName = etFullName.getText().toString().trim();
+        String fatherName = etFatherName.getText().toString().trim();
+        String motherName = etMotherName.getText().toString().trim();
         String dob = etDOB.getText().toString().trim();
 
-        if (fullName.isEmpty() || dob.isEmpty()) {
+        String sscSchool = ((TextInputEditText) findViewById(R.id.etSSCSchool)).getText().toString().trim();
+        String sscBoard = ((TextInputEditText) findViewById(R.id.etSSC_Board)).getText().toString().trim();
+        String sscPercentage = etSSCPercentage.getText().toString().trim();
+
+        String hscCollege = ((TextInputEditText) findViewById(R.id.etHSC_College)).getText().toString().trim();
+        String hscBoard = ((TextInputEditText) findViewById(R.id.etHSC_Board)).getText().toString().trim();
+        String hscPercentage = etHSCPercentage.getText().toString().trim();
+
+        // Validate required fields
+        if (fullName.isEmpty() || fatherName.isEmpty() || motherName.isEmpty() || dob.isEmpty()) {
             Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+
+        // Validate SSC Details (if applicable)
+        if (rgEducation.getCheckedRadioButtonId() == R.id.rbSSC) {
+            if (sscSchool.isEmpty()) {
+                Toast.makeText(this, "Please enter your SSC School Name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (sscBoard.isEmpty()) {
+                Toast.makeText(this, "Please enter your SSC Board Name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (sscPercentage.isEmpty()) {
+                Toast.makeText(this, "Please enter your SSC Percentage", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                float ssc = Float.parseFloat(sscPercentage);
+                if (ssc < 0 || ssc > 100) {
+                    Toast.makeText(this, "SSC Percentage should be between 0 and 100", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid SSC Percentage", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (sscPdfUri == null) {
+                Toast.makeText(this, "Please upload your SSC Marksheet", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        // Validate HSC Details (if applicable)
+        if (rgEducation.getCheckedRadioButtonId() == R.id.rbHSC) {
+            if (hscCollege.isEmpty()) {
+                Toast.makeText(this, "Please enter your HSC College Name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (hscBoard.isEmpty()) {
+                Toast.makeText(this, "Please enter your HSC Board Name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (hscPercentage.isEmpty()) {
+                Toast.makeText(this, "Please enter your HSC Percentage", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                float hsc = Float.parseFloat(hscPercentage);
+                if (hsc < 0 || hsc > 100) {
+                    Toast.makeText(this, "HSC Percentage should be between 0 and 100", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid HSC Percentage", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (hscPdfUri == null) {
+                Toast.makeText(this, "Please upload your HSC Marksheet", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        // Validate profile image selection
+        if (profileImageUri == null) {
+            Toast.makeText(this, "Please upload a profile image", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate caste certificate upload
+        if (castePdfUri == null) {
+            Toast.makeText(this, "Please upload your caste certificate", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate income certificate upload
+        if (incomePdfUri == null) {
+            Toast.makeText(this, "Please upload your income certificate", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate nationality certificate upload
+        if (nationalityPdfUri == null) {
+            Toast.makeText(this, "Please upload your nationality certificate", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate caste validity certificate upload
+        if (validityPdfUri == null) {
+            Toast.makeText(this, "Please upload your caste validity certificate", Toast.LENGTH_SHORT).show();
             return;
         }
 

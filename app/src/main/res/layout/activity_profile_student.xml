@@ -189,7 +189,7 @@
               android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSSC_School"
+                android:id="@+id/etSSCSchool"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="SSC School Name" />
