@@ -32,14 +32,13 @@
 
     <!-- Admin Login Button -->
     <Button
-        android:id="@+id/btn_admin_login"
+        android:id="@+id/btn_admin_login1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="👨‍💼 Admin Login"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:background="@drawable/admin_button_gradient"
         android:paddingVertical="12dp"
         android:layout_marginBottom="16dp" />
 

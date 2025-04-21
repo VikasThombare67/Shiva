@@ -18,7 +18,7 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        btnAdminLogin = findViewById(R.id.btn_admin_login);
+        btnAdminLogin = findViewById(R.id.btn_admin_login1);
         btnStudentLogin = findViewById(R.id.btn_student_login);
 
         adminPrefs = getSharedPreferences("AdminPrefs", MODE_PRIVATE);

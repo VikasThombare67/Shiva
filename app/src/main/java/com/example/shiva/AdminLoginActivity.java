@@ -1,6 +1,8 @@
+// AdminLoginActivity.java
 package com.example.shiva;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,6 +26,14 @@ public class AdminLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
 
+        // Auto login check
+        SharedPreferences preferences = getSharedPreferences("AdminPrefs", MODE_PRIVATE);
+        boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+        if (isLoggedIn) {
+            startActivity(new Intent(AdminLoginActivity.this, AdminDashboardActivity.class));
+            finish();
+        }
+
         etUsername = findViewById(R.id.et_admin_username);
         etPassword = findViewById(R.id.et_admin_password);
         btnLogin = findViewById(R.id.btn_admin_login);
@@ -45,8 +55,13 @@ public class AdminLoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Static credentials verification
         if (username.equals(STATIC_USERNAME) && password.equals(STATIC_PASSWORD)) {
+            // Save login session
+            SharedPreferences preferences = getSharedPreferences("AdminPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isLoggedIn", true);
+            editor.apply();
+
             Toast.makeText(AdminLoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
             navigateToDashboard();
         } else {
@@ -55,7 +70,6 @@ public class AdminLoginActivity extends AppCompatActivity {
     }
 
     private void navigateToDashboard() {
-        // Navigate to Admin Dashboard or Admin Notice/Notes Upload activity
         startActivity(new Intent(AdminLoginActivity.this, AdminDashboardActivity.class));
         finish();
     }

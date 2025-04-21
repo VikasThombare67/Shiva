@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/light_gray"
-    android:padding="16dp">
+    android:fillViewport="true">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Admin Dashboard"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:paddingBottom="20dp" />
-
-    <!-- Grid Layout for Cards -->
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/grid_layout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        app:alignmentMode="alignBounds"
-        app:columnCount="2"
-        app:useDefaultMargins="true">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
 
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin Dashboard"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:paddingBottom="20dp" />
+
+        <!-- Grid Layout for Cards -->
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/grid_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:alignmentMode="alignBounds"
+            app:columnCount="2"
+        app:useDefaultMargins="true">
         <!-- Notice Management Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -244,3 +248,4 @@
         android:padding="12dp"/>
 
 </LinearLayout>
+</ScrollView>
