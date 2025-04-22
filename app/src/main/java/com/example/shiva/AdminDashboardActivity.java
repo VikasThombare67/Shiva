@@ -65,5 +65,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         ((CardView) gridLayout.getChildAt(4)).setOnClickListener(v ->
                 startActivity(new Intent(AdminDashboardActivity.this, AdminStudentProfilesActivity.class)));
+        ((CardView) gridLayout.getChildAt(5)).setOnClickListener(v ->
+                startActivity(new Intent(AdminDashboardActivity.this, AdminFeedbackActivity.class)));
     }
 }

@@ -15,29 +15,29 @@
     </string-array>
 
 
-        <string-array name="gender_options">
-            <item>Male</item>
-            <item>Female</item>
-            <item>Other</item>
-        </string-array>
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 
-        <string-array name="blood_group_options">
-            <item>A+</item>
-            <item>A-</item>
-            <item>B+</item>
-            <item>B-</item>
-            <item>O+</item>
-            <item>O-</item>
-            <item>AB+</item>
-            <item>AB-</item>
-        </string-array>
+    <string-array name="blood_group_options">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
 
-        <string-array name="branch_options">
-            <item>Computer Engineering</item>
-            <item>Mechanical Engineering</item>
-            <item>Civil Engineering</item>
-            <item>Electrical Engineeing</item>
-        </string-array>
+    <string-array name="branch_options">
+        <item>Computer Engineering</item>
+        <item>Mechanical Engineering</item>
+        <item>Civil Engineering</item>
+        <item>Electrical Engineeing</item>
+    </string-array>
 
     <string-array name="category_options">
         <item>Open</item>
@@ -57,7 +57,12 @@
         <item>Jain</item>
         <item>Other</item>
     </string-array>
-
+    <string-array name="feedback_types">
+        <item>Teaching</item>
+        <item>Facilities</item>
+        <item>Staff Behavior</item>
+        <item>Other</item>
+    </string-array>
 
 
 </resources>

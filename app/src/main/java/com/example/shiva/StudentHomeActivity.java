@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StudentHomeActivity extends AppCompatActivity {
 
-    private CardView cardNotices, cardStaff, cardNotes, cardReports,cardprofile;
+    private CardView cardNotices, cardStaff, cardNotes, cardReports,cardprofile ,cardbook;
     private Button btnLogout;
     private ImageSlider imageSlider; // Image Slider Variable
 
@@ -26,6 +26,7 @@ public class StudentHomeActivity extends AppCompatActivity {
         // Initialize UI Components
         imageSlider = findViewById(R.id.imageSlider);
         cardNotices = findViewById(R.id.card_notices);
+        cardbook = findViewById(R.id.card_book);
         cardStaff = findViewById(R.id.card_staff);
         cardNotes = findViewById(R.id.card_notes);
         cardReports = findViewById(R.id.card_reports);
@@ -44,7 +45,8 @@ public class StudentHomeActivity extends AppCompatActivity {
         cardStaff.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, StaffViewActivity.class)));
         cardNotes.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, NotesViewActivity.class)));
         cardReports.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, ManualView.class)));
-        cardprofile.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this,StudentProfileActivity.class)));
+        cardprofile.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this, item_profile.class)));
+        cardbook.setOnClickListener(v -> startActivity(new Intent(StudentHomeActivity.this,activity_feedback.class)));
         // 🔹 Logout Functionality
         btnLogout.setOnClickListener(v -> {
             SharedPreferences preferences = getSharedPreferences("StudentPrefs", MODE_PRIVATE);
