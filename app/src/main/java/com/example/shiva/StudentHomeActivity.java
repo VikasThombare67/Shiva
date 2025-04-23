@@ -34,10 +34,16 @@ public class StudentHomeActivity extends AppCompatActivity {
         cardprofile= findViewById(R.id.card_profile);
         // 🔹 Setup Image Slider
         List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel(R.drawable.img1, "Welcome to College", ScaleTypes.FIT));
-       slideModels.add(new SlideModel(R.drawable.b, "Stay Updated with Notices", ScaleTypes.FIT));
-        //slideModels.add(new SlideModel(R.drawable.image3, "Explore Staff Details", ScaleTypes.FIT));
-       // slideModels.add(new SlideModel(R.drawable.image4, "Access Notes & Manuals", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.clg, "Welcome to College", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.hod, "Head of computer dept", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.staffffff, "All staff of computer ", ScaleTypes.FIT));
+       slideModels.add(new SlideModel(R.drawable.yash, "Devloper", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.sup, " all rounder & fullstack dev ", ScaleTypes.FIT));
+
+        slideModels.add(new SlideModel(R.drawable.vikas, "Tester", ScaleTypes.FIT));
+       slideModels.add(new SlideModel(R.drawable.shiva, "Designer", ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.sama, "Thinker", ScaleTypes.FIT));
+
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
         // 🔹 Set Click Listeners
